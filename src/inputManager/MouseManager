@@ -1,0 +1,213 @@
+package inputManager;
+
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+/**
+ * This class permited to get the input of the mouse and it position. To use it,
+ * you need to create an object {@link inputManager.MouseManager#MouseManager()
+ * MouseManager} and add this line in your object to listen:
+ * {@code objectToListen.addMouseListener(nameOfYourMouseManager);}
+ * 
+ * @author léonard
+ * 
+ */
+public class MouseManager implements MouseListener {
+
+	/**
+	 * True if the mouse enter the window and false if the mouse out the window
+	 * (default is the mouse is in).
+	 */
+	private boolean isEnter = true;
+	/**
+	 * Use in case when you need to do something until the user released his
+	 * click.
+	 */
+	private boolean isPressed = false;
+	/**
+	 * This two value are reset each time an action is doing.
+	 */
+	private int X;
+	/**
+	 * This two value are reset each time an action is doing.
+	 */
+	private int Y;
+	/**
+	 * 
+	 * @param lastUse = 0 ---> Default state, nothing has been done. 
+	 * @param lastUse = 1 ---> The last action is: "the mouse has entered the window". 
+	 * @param lastUse = 2 ---> The last action is: "the mouse exited the window".
+	 * @param lastUse = 3 ---> The last action is: "the mouse has been pressed". 
+	 * @param lastUse = 4 ---> The last action is: "the mouse has been released".
+	 * @param lastUse = 5 ---> The last action is: "the mouse has been clicked".
+	 * 
+	 */
+	private int lastUse = 0;
+	/**
+	 * The location with a pointer (inside the window).
+	 */
+	private Point pointer = null;
+	/**
+	 * The location of the mouse on the screen.
+	 */
+	private Point onScreen = null;
+	/**
+	 * Use to know if we click.
+	 */
+	private boolean click = false;
+
+	/**
+	 * The constructor.
+	 */
+	public MouseManager() {
+
+	}
+
+	/**
+	 * Verify if the mouse is enter the window.
+	 * 
+	 * @return {@link inputManager.MouseManager#isEnter }
+	 */
+	public boolean IsEnter() {
+		return isEnter;
+	}
+
+	/**
+	 * Verify if the mouse is pressed.
+	 * 
+	 * @return {@link inputManager.MouseManager#isPressed }
+	 */
+	public boolean IsPressed() {
+		return isPressed;
+	}
+
+	/**
+	 * Use to get the X position of the mouse (atcualise when an action is
+	 * performed).
+	 * 
+	 * @return {@link inputManager.MouseManager#X }
+	 */
+	public int getMouseX() {
+		return X;
+	}
+
+	/**
+	 * Use to get the Y position of the mouse (atcualise when an action is
+	 * performed).
+	 * 
+	 * @return {@link inputManager.MouseManager#Y }
+	 */
+	public int getMouseY() {
+		return Y;
+	}
+
+	/**
+	 * Use to know what is the last action performed.
+	 * 
+	 * @return {@link inputManager.MouseManager#lastUse }
+	 */
+	public int getLastUse() {
+		return lastUse;
+	}
+
+	/**
+	 * Use to get the position in pointer of the mouse at the last action.
+	 * 
+	 * @return {@link inputManager.MouseManager#pointer }
+	 */
+	public Point getPoint() {
+		return pointer;
+	}
+
+	/**
+	 * Use to get the position in pointer of the mouse at the last action in
+	 * rapport of the screen.
+	 * 
+	 * @return {@link inputManager.MouseManager#onScreen }
+	 */
+	public Point getPointOnScreen() {
+		return onScreen;
+	}
+
+	/**
+	 * Use to get the state of the click variable.
+	 * 
+	 * @return {@link inputManager.MouseManager#click }
+	 */
+	public boolean getClick() {
+		return click;
+	}
+
+	/**
+	 * Set click to false. You NEED to do this function JUST AFTER getClick.
+	 */
+	public void setClickFalse() {
+		click = false;
+	}
+
+	/**
+	 * Update {@link inputManager.MouseManager#click click},
+	 * {@link inputManager.MouseManager#X X},
+	 * {@link inputManager.MouseManager#Y Y},
+	 * {@link inputManager.MouseManager#pointer pointer},
+	 * {@link inputManager.MouseManager#onScreen onScreen} and
+	 * {@link inputManager.MouseManager#lastUse lastUse}
+	 * 
+	 */
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		X = arg0.getX();
+		Y = arg0.getY();
+		pointer = arg0.getPoint();
+		onScreen = arg0.getLocationOnScreen();
+		lastUse = 5;
+		click = true;
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		isEnter = true;
+		X = arg0.getX();
+		Y = arg0.getY();
+		pointer = arg0.getPoint();
+		onScreen = arg0.getLocationOnScreen();
+		lastUse = 1;
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		isEnter = false;
+		X = arg0.getX();
+		Y = arg0.getY();
+		pointer = arg0.getPoint();
+		onScreen = arg0.getLocationOnScreen();
+		lastUse = 2;
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		isPressed = true;
+		X = arg0.getX();
+		Y = arg0.getY();
+		pointer = arg0.getPoint();
+		onScreen = arg0.getLocationOnScreen();
+		lastUse = 3;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		isPressed = false;
+		X = arg0.getX();
+		Y = arg0.getY();
+		pointer = arg0.getPoint();
+		onScreen = arg0.getLocationOnScreen();
+		lastUse = 4;
+	}
+
+}
